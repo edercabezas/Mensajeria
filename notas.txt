@@ -1,0 +1,6 @@
+----instalacion
+instalacion de laravel 5.5
+composer create-project --prefer-dist laravel/laravel mensajeria "5.5.*"
+
+Configurar un virtual hos
+--C:\xampp\apache\conf\extra
