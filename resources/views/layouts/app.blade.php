@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html class="h-100">
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -11,11 +11,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
 </head>
-<body>
-
-    <div id="app">
+<body class="h-100">
+         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+        </form>
+    <div id="app" class="h-100">
 
  
             <b-navbar toggleable type="light" variant="info">
@@ -34,8 +36,11 @@
                         
                         @else
                         </b-nav-item-dropdown>
-                              <b-nav-item-dropdown text="username" right>
-                                <b-dropdown-item href="#">Cerrar sesion</b-dropdown-item>  
+                              
+                              <b-nav-item-dropdown text="{{ Auth::user()->name }}" right>
+                                <b-dropdown-item href="#" @click="logout">
+                                     Cerrar sesion
+                                </b-dropdown-item>  
                             </b-nav-item-dropdown>
                          @endguest
                       </b-navbar-nav>

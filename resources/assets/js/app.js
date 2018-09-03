@@ -10,8 +10,24 @@ import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('contacto-component', 
+	require('./components/ContactoComponent.vue'));
+
+Vue.component('contacto-list-component', 
+	require('./components/ContactoListComponent.vue'));
+
+Vue.component('activa-conversacion-component',
+ require('./components/ActivaConversacionComponent.vue'));
+
+Vue.component('mensaje-conversacion-component',
+ require('./components/MensajesConversacionesCompo.vue'));
+
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    methods:{
+    	logout(){
+    		 document.getElementById('logout-form').submit();
+    	}
+    }
 });
