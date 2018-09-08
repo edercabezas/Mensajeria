@@ -9,14 +9,28 @@ class MensajesController extends Controller
 {
    
    
-    public function index(){
+    public function index(Request $request){
     	
     	$myid = auth()->id();
+    	$contac = $request->contact_id;
 
+    	
     	return mensajes::select(
     		
     		DB::raw(" id, CASE WHEN from_id = $myid THEN true ELSE false END as written_by_me,created_at,contecnt")
-    		)->get();
+
+            )->where(function($query) use ($myid, $contac){
+
+                $query->where('from_id', $myid)->where('to_id', $contac );
+
+            })->orWhere(function($query) use ($myid,$contac){
+
+                 $query->where('from_id', $contac)->where('to_id', $myid);
+
+            })->get();
+    		
+
+    		
     }
 
     public function store(Request $request){

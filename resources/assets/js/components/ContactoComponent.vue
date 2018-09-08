@@ -11,15 +11,15 @@
                 </b-col>
 
                 <b-col cols="6" align-self="center" class="d-none d-md-block">
-                        <p class="mb-1">{{ name }}</p>
+                        <p class="mb-1">{{ conversa.contact_name }}</p>
                         <p class="text-muted small mb-1">
-                            {{ ultimomensaje }}
+                            {{ conversa.last_message }}
                         </p>
                 </b-col>
 
                 <b-col cols="3"  class="d-none d-md-block">
                      <p class="text-muted small small mb-0">
-                           {{ ultimahora }}
+                           {{ conversa.las_time }}
                         </p>
                 </b-col>
 
@@ -29,18 +29,17 @@
 
 <script>
     export default {
-        props: [
-            'variant'
-            ],
+        props: {
+            variant : String,
+            conversa: Object
+        },
         data(){
             return{
-                name: 'eder cortes c ',
-                ultimomensaje: 'Tu:adios',
-                ultimahora: '11:45 pm'
+               
             };
         },
         mounted() {
-            console.log('Component mounted.')
+           
         }
     }
 </script>

@@ -15,27 +15,29 @@ class MensajeTable extends Seeder
 
        	'from_id' => 1,
         'to_id' => 2,
-        'contect' =>'¿Como estas men?'
+        'contecnt' =>'¿Hola como estas men?'
        ]);
 
         mensajes::create([
 
        	'from_id' => 2,
         'to_id' => 1,
-        'contect' =>'¿Bien gracias y tud?'
+        'contecnt' =>'¿Bien gracias y tud?'
        ]);
 
          mensajes::create([
 
        	'from_id' => 1,
-        'to_id' => 2,
-        'contect' =>'¿muy bien gracias por preguntar?'
+        'to_id' => 3,
+        'contecnt' =>'¿Hola Como vas?'
        ]);
           mensajes::create([
 
-       	'from_id' => 2,
+       	'from_id' => 3,
         'to_id' => 1,
-        'contect' =>'¿ok no hay lio?'
+        'contecnt' =>'¿Muy bien, y tud?'
        ]);
+
+
     }
 }

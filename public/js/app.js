@@ -33063,17 +33063,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['variant'],
-    data: function data() {
-        return {
-            name: 'eder cortes c ',
-            ultimomensaje: 'Tu:adios',
-            ultimahora: '11:45 pm'
-        };
+    props: {
+        variant: String,
+        conversa: Object
     },
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+    data: function data() {
+        return {};
+    },
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -33118,12 +33115,14 @@ var render = function() {
               attrs: { cols: "6", "align-self": "center" }
             },
             [
-              _c("p", { staticClass: "mb-1" }, [_vm._v(_vm._s(_vm.name))]),
+              _c("p", { staticClass: "mb-1" }, [
+                _vm._v(_vm._s(_vm.conversa.contact_name))
+              ]),
               _vm._v(" "),
               _c("p", { staticClass: "text-muted small mb-1" }, [
                 _vm._v(
                   "\n                        " +
-                    _vm._s(_vm.ultimomensaje) +
+                    _vm._s(_vm.conversa.last_message) +
                     "\n                    "
                 )
               ])
@@ -33137,7 +33136,7 @@ var render = function() {
               _c("p", { staticClass: "text-muted small small mb-0" }, [
                 _vm._v(
                   "\n                       " +
-                    _vm._s(_vm.ultimahora) +
+                    _vm._s(_vm.conversa.las_time) +
                     "\n                    "
                 )
               ])
@@ -33234,13 +33233,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+
+        return {
+            conversacion: []
+        };
     },
     mounted: function mounted() {
-        console.log('Component mounted.');
+        this.getConversacion();
+    },
+
+    methods: {
+        getConversacion: function getConversacion() {
+            var _this = this;
+
+            axios.get('/api/conversacion').then(function (response) {
+                _this.conversacion = response.data;
+            });
+        },
+        selectConversacion: function selectConversacion(conversa) {
+            console.log(conversa);
+        }
     }
 });
 
@@ -33269,14 +33290,17 @@ var render = function() {
       _vm._v(" "),
       _c(
         "b-list-group",
-        [
-          _c("contacto-component", { attrs: { variant: "dark" } }),
-          _vm._v(" "),
-          _c("contacto-component", { attrs: { variant: "" } }),
-          _vm._v(" "),
-          _c("contacto-component", { attrs: { variant: "secondary" } })
-        ],
-        1
+        _vm._l(_vm.conversacion, function(conversa) {
+          return _c("contacto-component", {
+            key: conversa.id,
+            attrs: { conversa: conversa },
+            nativeOn: {
+              click: function($event) {
+                _vm.selectConversacion(conversa)
+              }
+            }
+          })
+        })
       )
     ],
     1
@@ -33396,7 +33420,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
        data: function data() {
               return {
                      messages: [],
-                     newmensaje: ''
+                     newmensaje: '',
+                     contactoId: 2
               };
        },
        mounted: function mounted() {
@@ -33407,7 +33432,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               getMensajes: function getMensajes() {
                      var _this = this;
 
-                     axios.get('/api/mensajes').then(function (response) {
+                     axios.get('/api/mensajes?contact_id=' + this.contactoId).then(function (response) {
                             console.log(response.data);
                             _this.messages = response.data;
                      });

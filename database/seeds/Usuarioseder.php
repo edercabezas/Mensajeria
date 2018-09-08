@@ -17,20 +17,18 @@ class Usuarioseder extends Seeder
       	'email' => 'edercortez10@gmail.com',
       	'password' => bcrypt('Peligro') 
       	]);
+     
        User::create([
       	'name' => 'arley Cortes',
       	'email' => 'edercortez0@gmail.com',
       	'password' => bcrypt('Peligro20') 
       	]);
+      
         User::create([
       	'name' => 'Eder ',
       	'email' => 'edercortes10@gmail.com',
       	'password' => bcrypt('Peligro') 
       	]);
-      	 User::create([
-      	'name' => ' Cortes',
-      	'email' => 'edercortez@gmail.com',
-      	'password' => bcrypt('Peligro10') 
-      	]);
+      
     }
 }

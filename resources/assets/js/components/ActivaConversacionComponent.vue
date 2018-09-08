@@ -50,7 +50,8 @@
         data(){
             return{
             	messages: [],
-            	newmensaje: ''
+            	newmensaje: '',
+            	contactoId: 2
             };
         },
         mounted() {
@@ -59,7 +60,7 @@
         methods: {
         	getMensajes(){
 
-        		axios.get('/api/mensajes')
+        		axios.get(`/api/mensajes?contact_id=${this.contactoId}`)
 	            .then((response) => {
 	            	console.log(response.data);
 	            	this.messages = response.data;
