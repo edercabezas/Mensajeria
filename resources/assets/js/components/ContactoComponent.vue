@@ -4,13 +4,15 @@
                 <b-row class="p-2" align-h="center">
                             
                 <b-col cols="12" md="3"  class="text-center">
-                    <b-img rounded="circle"
-                     blank width="60" height="60" 
-                     blank-color="#777" 
-                    alt="img" class="m-1" />
+                    <b-img :src="conversa.contact_image" rounded="circle"  width="48" height="48" 
+                    
+                     />
                 </b-col>
 
                 <b-col cols="6" align-self="center" class="d-none d-md-block">
+                            
+                    <estatus-component :online="conversa.online"/>
+                            
                         <p class="mb-1">{{ conversa.contact_name }}</p>
                         <p class="text-muted small mb-1">
                             {{ conversa.last_message }}
@@ -19,7 +21,7 @@
 
                 <b-col cols="3"  class="d-none d-md-block">
                      <p class="text-muted small small mb-0">
-                           {{ conversa.las_time }}
+                           {{ lasTime }}
                         </p>
                 </b-col>
 
@@ -30,16 +32,23 @@
 <script>
     export default {
         props: {
-            variant : String,
-            conversa: Object
+            
+            conversa: Object,
+            selected: Boolean
         },
-        data(){
-            return{
-               
-            };
-        },
-        mounted() {
-           
+        computed: {
+            lasTime(){
+                return moment(
+                this.conversa.las_time, 
+                "YYYY-MM-DD hh:mm:ss")
+                .locale('es')
+                .fromNow('dddd');
+            },
+            variant(){
+
+               // return this.selected ? 'secondary' : '';
+                return this.selected ? 'info' : '';
+            }
         }
     }
 </script>

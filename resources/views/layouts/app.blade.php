@@ -23,7 +23,7 @@
             <b-navbar toggleable type="light" variant="info">
                 <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
                 
-                <b-navbar-brand  href="{{ url('/') }}">
+                <b-navbar-brand  href="{{ url('/chat') }}">
                         {{ config('app.name', 'Laravel') }}
                 </b-navbar-brand>
 
@@ -38,6 +38,13 @@
                         </b-nav-item-dropdown>
                               
                               <b-nav-item-dropdown text="{{ Auth::user()->name }}" right>
+                                  <b-dropdown-item href="{{ url('/perfil') }}">
+                                   Modificar perfil     
+                                </b-dropdown-item> 
+                                <b-dropdown-item href="{{ url('/usuario') }}">
+                                  Agregar contacto     
+                                </b-dropdown-item> 
+
                                 <b-dropdown-item href="#" @click="logout">
                                      Cerrar sesion
                                 </b-dropdown-item>  
@@ -47,18 +54,13 @@
 
                 </b-collapse>
             </b-navbar>
-        
-
-       
-           
-              
-           
        
 
         @yield('content')
+
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

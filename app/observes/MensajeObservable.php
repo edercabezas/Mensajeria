@@ -4,7 +4,7 @@ namespace App\observes;
 
 use App\mensajes;
 use App\conversaciones;
-
+use App\Events\mensajesenviados;
 
 class MensajeObservable
 {
@@ -14,6 +14,8 @@ class MensajeObservable
      * @param  \App\mensajes  $mensajes
      * @return void
      */
+
+
     public function created(mensajes $mensa)
     {
         $conversa = conversaciones::where('user_id',$mensa->from_id)
@@ -34,6 +36,8 @@ class MensajeObservable
                     $conversa->las_time = $mensa->created_at;
                     $conversa->save();
             }
+
+            event(new mensajesenviados($mensa));
 
 
     }

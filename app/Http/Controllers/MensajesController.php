@@ -38,11 +38,12 @@ class MensajesController extends Controller
     	$mensaje = new mensajes();
     	$mensaje->from_id = auth()->id();
     	$mensaje->to_id = $request->to_id;
-    	$mensaje->contecnt = $request->cont;
+    	$mensaje->contecnt = $request->content;
     	$save = $mensaje->save();
 
     	$data = [];
     	$data['success'] = $save;
+        $data['mensaje'] = $mensaje;
     	return $data;
 
 

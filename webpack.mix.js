@@ -11,6 +11,9 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js');
+mix.js('resources/assets/js/app.js', 'public/js')
+.version()
+.disableNotifications();
+//.disableNotifications() evito q siempre me salga el mensaje cuando compilo 
 	
 

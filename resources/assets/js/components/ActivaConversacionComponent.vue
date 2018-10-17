@@ -2,23 +2,30 @@
 		
 	  <b-row>
 	<b-col cols="8">
-	 <b-card 
+	 <b-card no-body
           footer-bg-variant="light"
           footer-border-variant="dark"
-          title="Conversacion Activa"
           class="h-100">
+					
+					<b-card-body class="card-body-scroll">	
+							<mensaje-conversacion-component 
+					    	v-for="message in messages"
+					    	:key="message.id"
+					    	:written-by-me="message.written_by_me"
+					    	:image="message.written_by_me ? myImage : selectedConversacion.contact_image">
+					    	
+					    	{{ message.contecnt }}
+			    	</mensaje-conversacion-component>
+					</b-card-body>
 
-	    	<mensaje-conversacion-component 
-	    	v-for="message in messages"
-	    	:key="message.id"
-	    	:written-by-me="message.written_by_me">
-	    		{{ message.contecnt }}
-	    	</mensaje-conversacion-component>
+	    		<div id="mensaje-contenedor">
+			    
 
+	    		</div>
 		    <div slot="footer">
-				   <b-form class="mb-0" @submit.prevent="postMenssge" autocomplete="off">
+				   <b-form class="mb-0" @submit.prevent="postMessage" autocomplete="off">
 				   	   <b-input-group>
-			            <b-form-input  type="text" class="text-center" v-model="newmensaje"
+			            <b-form-input  type="text" class="text-center" v-model="newMensaje"
 			                placeholder="Buscar contacto.....">
 			            </b-form-input>
 
@@ -33,9 +40,8 @@
 	</b-col>
 			<b-col cols="4">            
 			
-				<b-img rounded="circle"blank width="60" height="60" blank-color="#777" alt="img" 
-				class="m-1" />
-			<p> Usuario selecionado</p>
+				<b-img :src="selectedConversacion.contact_image" rounded="circle" width="60" height="60" class="m-1" />
+			<p> {{ selectedConversacion.contact_name }}</p>
 			<hr>
 				<b-form-checkbox>
 				Desactivar notificaciones
@@ -44,44 +50,53 @@
 	  </b-row>
 	</template>
 
+	<style type="text/css">
+		.card-body-scroll{
+
+			max-height: calc(100vh -63px);
+			overflow-y: auto;
+		}
+
+	</style>
+
 <script>
     export default {
-       
+      
         data(){
             return{
-            	messages: [],
-            	newmensaje: '',
-            	contactoId: 2
-            };
-        },
-        mounted() {
- 			this.getMensajes();
+            	
+            	newMensaje: ''
+             };
         },
         methods: {
-        	getMensajes(){
+        	postMessage(){
+	        		this.$store.dispatch('postMessage', this.newMensaje).then(() => {
 
-        		axios.get(`/api/mensajes?contact_id=${this.contactoId}`)
-	            .then((response) => {
-	            	console.log(response.data);
-	            	this.messages = response.data;
-	            });
+	        			this.newMensaje =  '';
+	        		});
         	},
-        	
-        	postMenssge(){
-        		const params ={
-        			to_id: 2,
-        			cont: this.newmensaje
-        		};
-
-        		axios.post('/api/mensajes', params)
-	            .then((response) => {
-	            //	console.log(response.data);
-	            	this.newmensaje = '';
-	            	this.getMensajes();
-
-	            });
-
+        	scrollToBotom(){
+        		const el = document.querySelector('.card-body-scroll');
+        		el.scrollTop = el.scrollHeight;
         	}
-        }
+        },
+        computed: {
+
+        		myImage(){
+        			return `/users/${this.$store.state.user.image}`;
+        		
+        		},
+        		selectedConversacion(){
+        			return this.$store.state.selectedConversacion;
+
+        		},
+        			messages(){
+        			return this.$store.state.messages;
+        		}
+        },
+      	updated(){
+      		this.scrollToBotom();
+        	}
     }
+
 </script>
