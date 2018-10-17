@@ -1982,7 +1982,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     Echo.private('users.' + this.user.id).listen('mensajesenviados', function (data) {
       var mensaje = data.mensaje;
       mensaje.written_by_me = false;
-      _this.addMensaje(mensaje);
+      _this.addMessages(mensaje);
     });
     Echo.join('mensajes').here(function (users) {
       users.forEach(function (user) {
@@ -2004,8 +2004,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (index >= 0) this.$set(this.$store.state.conversacion[index], 'online', status);
     },
-    addMensaje: function addMensaje(mensaje) {
-      this.$store.commit('addMensaje', mensaje);
+    addMessages: function addMessages(mensaje) {
+      this.$store.commit('addMessages', mensaje);
     }
   },
 

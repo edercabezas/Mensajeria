@@ -46,7 +46,7 @@
               .listen('mensajesenviados', (data) => {
              const mensaje = data.mensaje;
               mensaje.written_by_me = false;  
-              this.addMensaje(mensaje);
+              this.addMessages(mensaje);
               });
             Echo.join('mensajes')
                 .here((users) => {
@@ -66,8 +66,8 @@
                  this.$set( this.$store.state.conversacion[index],'online',status);
               },
               
-              addMensaje(mensaje){
-                this.$store.commit('addMensaje', mensaje);
+              addMessages(mensaje){
+                this.$store.commit('addMessages', mensaje);
 
               }
            },

@@ -50,7 +50,7 @@ export default new Vuex.Store({
                     conversation.las_time = messages.created_at;
                if(state.selectedConversacion.contact_id == messages.from_id ||
                   state.selectedConversacion.contact_id == messages.to_id)
-              state.messages.push(messages);
+                state.messages.push(messages);
         }
   },
 
